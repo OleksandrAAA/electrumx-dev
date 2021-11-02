@@ -305,6 +305,67 @@ class DeserializerSegWit(Deserializer):
         tx, _tx_hash, vsize = self._read_tx_parts()
         return tx, vsize
 
+class DeserializerChesscoin(Deserializer):
+
+    def _read_witness(self, fields):
+        read_witness_field = self._read_witness_field
+        return [read_witness_field() for i in range(fields)]
+
+    def _read_witness_field(self):
+        read_varbytes = self._read_varbytes
+        return [read_varbytes() for i in range(self._read_varint())]
+
+    def _read_tx_parts(self):
+        '''Return a (deserialized TX, tx_hash, vsize) tuple.'''
+        start = self.cursor
+        marker = self.binary[self.cursor + 4]
+        if marker:
+            # We could call super().read_tx here but the call stack is
+            # expensive when executed millions of times.
+            tx = Tx(
+                self._read_le_int32(),  # version
+                self._read_le_uint32(), # time
+                self._read_inputs(),    # inputs
+                self._read_outputs(),   # outputs
+                self._read_le_uint32()  # locktime
+            )
+            tx_hash = self.TX_HASH_FN(self.binary[start:self.cursor])
+            return tx, tx_hash, self.binary_length
+
+        # Ugh, this is tasty.
+        version = self._read_le_int32()
+        orig_ser = self.binary[start:self.cursor]
+
+        marker = self._read_byte()
+        flag = self._read_byte()
+
+        start = self.cursor
+        inputs = self._read_inputs()
+        outputs = self._read_outputs()
+        orig_ser += self.binary[start:self.cursor]
+
+        base_size = self.cursor - start
+        witness = self._read_witness(len(inputs))
+
+        start = self.cursor
+        locktime = self._read_le_uint32()
+        orig_ser += self.binary[start:self.cursor]
+        vsize = (3 * base_size + self.binary_length) // 4
+
+        return TxSegWit(version, marker, flag, inputs, outputs, witness,
+                        locktime), self.TX_HASH_FN(orig_ser), vsize
+
+    def read_tx(self):
+        return self._read_tx_parts()[0]
+
+    def read_tx_and_hash(self):
+        tx, tx_hash, _vsize = self._read_tx_parts()
+        return tx, tx_hash
+
+    def read_tx_and_vsize(self):
+        tx, _tx_hash, vsize = self._read_tx_parts()
+        return tx, vsize
+
 
 class DeserializerAuxPow(Deserializer):
     VERSION_AUXPOW = (1 << 8)

@@ -4004,12 +4004,12 @@ class ChesscoinMixin:
 
 class Chesscoin(ChesscoinMixin, Coin):
     NAME = "Chesscoin"
-    DESERIALIZER = lib_tx.DeserializerSegWit
+    DESERIALIZER = lib_tx.DeserializerChesscoin
     GENESIS_HASH = ('0000048f94311e912681a9a25eb553e4'
                     'a4d1703689c5f9a264c7b07245c7ff1f')
     MEMPOOL_HISTOGRAM_REFRESH_SECS = 120
     TX_COUNT = 565436782
-    TX_COUNT_HEIGHT = 4849
+    TX_COUNT_HEIGHT = 690723	
     TX_PER_BLOCK = 2200
 
     CRASH_CLIENT_VER = (3, 2, 3)
