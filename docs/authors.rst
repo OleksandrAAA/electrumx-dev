@@ -18,3 +18,7 @@ Authors
 * John Jegutanis
 
   Alt-chain integrations.
+
+* Oleksandr 
+ 
+  Chesscoin integrations.

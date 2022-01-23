@@ -22,7 +22,7 @@ These environment variables are always required:
 .. envvar:: COIN
 
   Must be a :attr:`NAME` from one of the :class:`Coin` classes in
-  `lib/coins.py`_. For example, ``Bitcoin``.
+  `lib/coins.py`_. For example, ``Chesscoin``.
 
 .. envvar:: DB_DIRECTORY
 
@@ -95,17 +95,17 @@ case a default value will be assumed.
 
 Here are some examples of valid services::
 
-  tcp://host.domain.tld:50001           # Hostname, lowercase protocol, port
-  SSL://23.45.67.78:50002               # An IPv4 address, upper-case protocol, port
+  tcp://host.domain.tld:57301           # Hostname, lowercase protocol, port
+  SSL://23.45.67.78:57302               # An IPv4 address, upper-case protocol, port
   rpC://localhost                       # Host as a string, mixed-case protocol, default port
-  ws://[1234:5678:abcd::5601]:8000      # Host as an IPv6 address
-  wss://h3ubaasdlkheryasd.onion:50001   # Host as a Tor ".onion" address
-  rpc://:8000                           # Default host, port given
+  ws://[1234:5678:abcd::5601]:7324      # Host as an IPv6 address
+  wss://h3ubaasdlkheryasd.onion:57301   # Host as a Tor ".onion" address
+  rpc://:7324                           # Default host, port given
   host.domain.tld:5151                  # Default protocol, hostname, port
   rpc://                                # RPC protocol, default host and port
 
 .. note:: ElectrumX will not serve any incoming connections until it has fully caught up
-          with your bitcoin daemon.  The only exception is local **RPC** connections,
+          with your chesscoin daemon.  The only exception is local **RPC** connections,
           which are served at any time after the server has initialized.
 
 .. envvar:: SERVICES
@@ -121,7 +121,7 @@ Here are some examples of valid services::
   *host* defaults to all of the machine's interfaces, except if the protocol is **rpc**,
   when it defaults to :const:`localhost`.
 
-  *port* can only be defaulted for **rpc** where the default is :const:`8000`.
+  *port* can only be defaulted for **rpc** where the default is :const:`7324`.
 
   On most Unix systems ports below 1024 require elevated privileges so choosing a higher
   port is advisable.  On Debian for example, this can be achieved by installing
@@ -137,11 +137,11 @@ Here are some examples of valid services::
 
   Here is an example value of the :envvar:`SERVICES` environment variable::
 
-    tcp://:50001,ssl://:50002,wss://:50004,rpc://
+    tcp://:57301,ssl://:57302,rpc://
 
-  This serves **tcp**, **ssl**, **wss** on all interfaces on ports 50001, 50002 and 50004
+  This serves **tcp**, **ssl**, **wss** on all interfaces on ports 57301, 57302
   respectively.  **rpc** is served on its default host :const:`localhost` and default port
-  :const:`8000`.
+  :const:`7324`.
 
 .. envvar:: REPORT_SERVICES
 
@@ -157,10 +157,10 @@ Here are some examples of valid services::
 
   Here is an example value of the :envvar:`REPORT_SERVICES` environment variable::
 
-    tcp://sv.usebsv.com:50001,ssl://sv.usebsv.com:50002,wss://sv.usebsv.com:50004
+    tcp://sv.usebsv.com:57301,ssl://sv.usebsv.com:57302,wss://sv.usebsv.com:57304
 
   This advertizes **tcp**, **ssl**, **wss** services at :const:`sv.usebsv.com` on ports
-  50001, 50002 and 50004 respectively.
+  57301, 57302 and 57304 respectively.
 
 .. note:: Certificate Authority-signed certificates don't work over Tor, so you should
           only have Tor services` in :envvar:`REPORT_SERVICES` if yours is self-signed.
@@ -233,7 +233,7 @@ These environment variables are optional:
   + ``$DAEMON_VERSION`` is replaced with the daemon's version as a
     dot-separated string. For example ``0.12.1``.
   + ``$DAEMON_SUBVERSION`` is replaced with the daemon's user agent
-    string.  For example, ``/BitcoinUnlimited:0.12.1(EB16; AD4)/``.
+    string.  For example, ``/ChesscoinUnlimited:0.12.1(EB16; AD4)/``.
   + ``$DONATION_ADDRESS`` is replaced with the address from the
     :envvar:`DONATION_ADDRESS` environment variable.
 
@@ -264,7 +264,7 @@ These environment variables are optional:
   The maximum number of blocks to be able to handle in a chain
   reorganisation.  ElectrumX retains some fairly compact undo
   information for this many blocks in levelDB.  The default is a
-  function of :envvar:`COIN` and :envvar:`NET`; for Bitcoin mainnet it
+  function of :envvar:`COIN` and :envvar:`NET`; for Chesscoin mainnet it
   is 200.
 
 .. envvar:: EVENT_LOOP_POLICY
@@ -310,7 +310,7 @@ raise them.
 .. envvar:: MAX_RECV
 
   The maximum size of an incoming message in bytes, the default is 1,000,000 bytes.
-  Note that the smallest sane/safe value for Bitcoin is ~800,100 bytes,
+  Note that the smallest sane/safe value for Chesscoin is ~800,100 bytes,
   as the largest standard tx can have a weight of 400K but the protocol hex-encodes that,
   plus there is a few bytes of protocol overhead. Setting this to lower than that
   would preclude clients from broadcasting txs that could propagate over the network.
@@ -327,14 +327,14 @@ raise them.
   served all at once or not at all, an obvious avenue for abuse.
   :envvar:`MAX_SEND` is a stop-gap until the protocol is improved to
   admit incremental history requests.  Each history entry is
-  approximately 100 bytes, so the default is equivalent to a history
+  approximately 100 bytes so the default is equivalent to a history
   limit of around 10,000 entries, which should be ample for most
-  legitimate users.  If you use a higher default, bear in mind one
+  legitimate users.  If you use a higher default bear in mind one
   client can request history for multiple addresses.  Also note that
   the largest raw transaction you will be able to serve to a client is
   just under half of :envvar:`MAX_SEND`, as each raw byte becomes 2
   hexadecimal ASCII characters on the wire.  Very few transactions on
-  Bitcoin mainnet are over 500KB in size.
+  Chesscoin mainnet are over 500KB in size.
 
 .. envvar:: COST_SOFT_LIMIT
 .. envvar:: COST_HARD_LIMIT
@@ -348,7 +348,7 @@ raise them.
   milliseconds, and :envvar:`INITIAL_CONCURRENT` to :const:`10` concurrent requests.
 
   The server prices each request made to it based upon an estimate of the resources needed
-  to process it.  Factors include whether the request uses bitcoind, how much bandwidth
+  to process it.  Factors include whether the request uses chesscoind, how much bandwidth
   it uses, and how hard it hits the databases.
 
   To set a base for the units, a :func:`blockchain.scripthash.subscribe` subscription to

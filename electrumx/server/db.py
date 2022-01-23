@@ -1,6 +1,6 @@
 # Copyright (c) 2016-2020, Neil Booth
 # Copyright (c) 2017, the ElectrumX authors
-#
+# Copyright (c) 2021-2022, Oleksandr
 # All rights reserved.
 #
 # See the file "LICENCE" for information about the copyright

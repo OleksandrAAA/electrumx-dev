@@ -1,5 +1,5 @@
 # Copyright (c) 2018, Neil Booth
-#
+# Copyright (c) 2021-2022, Oleksandr
 # All rights reserved.
 #
 # The MIT License (MIT)

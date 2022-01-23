@@ -1,7 +1,3 @@
-.. image:: https://travis-ci.org/spesmilo/electrumx.svg?branch=master
-    :target: https://travis-ci.org/spesmilo/electrumx
-.. image:: https://coveralls.io/repos/github/spesmilo/electrumx/badge.svg
-    :target: https://coveralls.io/github/spesmilo/electrumx
 
 ===============================================
 ElectrumX - Reimplementation of electrum-server

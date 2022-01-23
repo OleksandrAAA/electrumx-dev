@@ -1,5 +1,5 @@
 # Copyright (c) 2016-2018, Neil Booth
-#
+# Copyright (c) 2021-2022, Oleksandr
 # All rights reserved.
 #
 # See the file "LICENCE" for information about the copyright
@@ -427,7 +427,7 @@ class SessionManager:
     async def rpc_add_peer(self, real_name):
         '''Add a peer.
 
-        real_name: "bch.electrumx.cash t50001 s50002" for example
+        real_name: "bch.electrumx.cash t57301 s57302" for example
         '''
         await self.peer_mgr.add_localRPC_peer(real_name)
         return f"peer '{real_name}' added"

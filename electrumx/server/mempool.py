@@ -1,5 +1,5 @@
 # Copyright (c) 2016-2018, Neil Booth
-#
+# Copyright (c) 2021-2022, Oleksandr
 # All rights reserved.
 #
 # See the file "LICENCE" for information about the copyright
@@ -72,7 +72,7 @@ class MemPoolAPI(ABC):
 
     @abstractmethod
     async def raw_transactions(self, hex_hashes):
-        '''Query bitcoind for the serialized raw transactions with the given
+        '''Query chesscoind for the serialized raw transactions with the given
         hashes.  Missing transactions are returned as None.
 
         hex_hashes is an iterable of hexadecimal hash strings.'''

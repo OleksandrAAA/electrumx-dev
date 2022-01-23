@@ -1,5 +1,5 @@
 # Copyright (c) 2016, Neil Booth
-#
+# Copyright (c) 2021-2022, Oleksandr
 # All rights reserved.
 #
 # See the file "LICENCE" for information about the copyright
@@ -16,10 +16,8 @@ from aiorpcx import Service, ServicePart
 from electrumx.lib.coins import Coin
 from electrumx.lib.env_base import EnvBase
 
-
 class ServiceError(Exception):
     pass
-
 
 class Env(EnvBase):
     '''Wraps environment configuration. Optionally, accepts a Coin class
@@ -37,7 +35,7 @@ class Env(EnvBase):
     def __init__(self, coin=None):
         super().__init__()
         self.obsolete(["MAX_SUBSCRIPTIONS", "MAX_SUBS", "MAX_SESSION_SUBS", "BANDWIDTH_LIMIT",
-                       "HOST", "TCP_PORT", "SSL_PORT", "RPC_HOST", "RPC_PORT", "REPORT_HOST",
+                       "RPC_HOST", "RPC_PORT", "REPORT_HOST",
                        "REPORT_TCP_PORT", "REPORT_SSL_PORT", "REPORT_HOST_TOR",
                        "REPORT_TCP_PORT_TOR", "REPORT_SSL_PORT_TOR"])
 

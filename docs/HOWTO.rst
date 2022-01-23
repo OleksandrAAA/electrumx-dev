@@ -53,7 +53,7 @@ used to either.
 When building the database from the genesis block, ElectrumX has to
 flush large quantities of data to disk and its DB.  You will have a
 better experience if the database directory is on an SSD than on an
-HDD.  Currently to around height 611,600 of the Bitcoin blockchain the
+HDD.  Currently to around height 611,600 of the chesscoin blockchain the
 final size of the leveldb database, and other ElectrumX file metadata
 comes to just over 46.9GB (43.7 GiB).  LevelDB needs a bit more for
 brief periods, and the block chain is only getting longer, so I would
@@ -84,7 +84,7 @@ Install the prerequisites above.
 
 Check out the code from Github::
 
-    git clone https://github.com/spesmilo/electrumx.git
+    git clone https://github.com/OleksandrAAA/electrumx-dev.git
     cd electrumx
 
 You can install with::
@@ -276,7 +276,7 @@ the default of 1,200.  LevelDB.
 Intel i5 CPU with an HDD and 24GB RAM.  Running chesscoind on the same
 machine.  :envvar:`DB_CACHE` set to 1,800.  LevelDB.
 
-For chains other than bitcoin-mainnet synchronization should be much
+For chains other than chesscoin-mainnet synchronization should be much
 faster.
 
 .. note:: ElectrumX will not serve normal client connections until it
@@ -339,7 +339,7 @@ Here is typical log output on startup::
   INFO:BlockProcessor:creating metadata diretcory
   INFO:BlockProcessor:software version: ElectrumX 0.10.2
   INFO:BlockProcessor:DB version: 5
-  INFO:BlockProcessor:coin: Bitcoin
+  INFO:BlockProcessor:coin: Chesscoin
   INFO:BlockProcessor:network: mainnet
   INFO:BlockProcessor:height: -1
   INFO:BlockProcessor:tip: 0000000000000000000000000000000000000000000000000000000000000000
@@ -348,7 +348,7 @@ Here is typical log output on startup::
   INFO:BlockProcessor:reorg limit is 200 blocks
   INFO:Daemon:daemon at 192.168.0.2:8332/
   INFO:BlockProcessor:flushing DB cache at 1,200 MB
-  INFO:Controller:RPC server listening on localhost:8000
+  INFO:Controller:RPC server listening on localhost:7324
   INFO:Prefetcher:catching up to daemon height 447,187...
   INFO:Prefetcher:verified genesis block with hash 000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f
   INFO:BlockProcessor:our height: 9 daemon: 447,187 UTXOs 0MB hist 0MB
@@ -426,13 +426,13 @@ copy of your certificate and key in case you need to restore them.
 Running on a privileged port
 ============================
 
-You may choose to run electrumx on a different port than 50001
-/ 50002.  If you choose a privileged port ( < 1024 ) it makes sense to
+You may choose to run electrumx on a different port than 57301
+/ 57302.  If you choose a privileged port ( < 1024 ) it makes sense to
 make use of a iptables NAT rule.
 
-An example, which will forward Port 110 to the internal port 50002 follows::
+An example, which will forward Port 110 to the internal port 57302 follows::
 
-    iptables -t nat -A PREROUTING -p tcp --dport 110 -j DNAT --to-destination 127.0.0.1:50002
+    iptables -t nat -A PREROUTING -p tcp --dport 110 -j DNAT --to-destination 127.0.0.1:57302
 
 You can then set the port as follows and advertise the service externally on the privileged port::
 

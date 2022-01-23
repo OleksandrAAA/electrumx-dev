@@ -12,7 +12,7 @@ The general form of invocation is::
 
 The port to send the commands to can be specified on the command line,
 otherwise the environment variable :envvar:`RPC_PORT` is used, and if
-that is not set then **8000** is assumed.
+that is not set then **7324** is assumed.
 
 The following commands are available:
 
@@ -69,8 +69,8 @@ A typical result is as follows (with annotated comments)::
 
   $ electrumx_rpc getinfo
   {
-      "coin": "Bitcoin",
-      "daemon": "127.0.0.1:9334/",
+      "coin": "Chesscoin",
+      "daemon": "127.0.0.1:7324/",
       "daemon height": 572154,         # The daemon's height when last queried
       "db height": 572154,             # The height to which the DB is flushed
       "groups": 586,                   # The number of session groups

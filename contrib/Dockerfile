@@ -23,7 +23,7 @@ RUN apt-get update \
         librocksdb5.17 libsnappy1v5 libbz2-1.0 zlib1g liblz4-1 \
     && rm -rf /var/lib/apt/lists/*
 
-ENV SERVICES="tcp://:50001"
+ENV SERVICES="tcp://:57301"
 ENV COIN=Chesscoin
 ENV DB_DIRECTORY=/var/lib/electrumx
 ENV DAEMON_URL="http://username:password@hostname:port/"
@@ -44,5 +44,5 @@ CMD ["/usr/src/app/venv/bin/python", "/usr/src/app/venv/bin/electrumx_server"]
 
 # build it with eg.: `docker build -t electrumx .`
 # run it with eg.:
-# `docker run -d --net=host -v /home/electrumx/db/:/var/lib/electrumx -e DAEMON_URL="http://youruser:yourpass@localhost:8332" -e REPORT_SERVICES=tcp://example.com:50001 electrumx`
+# `docker run -d --net=host -v /home/electrumx/db/:/var/lib/electrumx -e DAEMON_URL="http://youruser:yourpass@localhost:8332" -e REPORT_SERVICES=tcp://example.com:57301 electrumx`
 # for a clean shutdown, send TERM signal to the running container eg.: `docker kill --signal="TERM" CONTAINER_ID`

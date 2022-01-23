@@ -4,8 +4,8 @@ After=network.target
 
 [Service]
 EnvironmentFile=/etc/electrumx.conf
-ExecStart=/usr/local/bin/electrumx_server
-User=electrumx
+ExecStart=/home/ubuntu/source/electrumx-dev/electrumx_server
+User=ubuntu
 LimitNOFILE=8192
 TimeoutStopSec=30min
 
